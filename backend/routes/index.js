@@ -1,8 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const { authMiddleware } = require("../util/auth");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+const router = express.Router();
+
+router.use(authMiddleware);
+
+router.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ test: 1 }));
 });
