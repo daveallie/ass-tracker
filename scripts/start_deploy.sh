@@ -7,7 +7,7 @@ if [[ "$(whoami)" = "ubuntu" ]]; then
   exit 1
 fi
 
-deployStamp=$(date +%s)
+deployStamp="$(date +%s)-$(env LC_CTYPE=C tr -dc "a-zA-Z0-9" < /dev/urandom | head -c 10)"
 deployPath=/home/ubuntu/server/deploys
 
 ssh ubuntu@3.104.76.139 << EOF
