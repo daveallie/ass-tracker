@@ -18,6 +18,7 @@ outputLogHeader "Navigating to $deploymentRoot/backend"
 cd $deploymentRoot/backend
 outputLogHeader "Installing backend dependencies"
 yarn
+ln -s $deploymentRoot/../../shared/.env .env
 
 outputLogHeader "Navigating to $deploymentRoot/frontend"
 cd $deploymentRoot/frontend

@@ -3,7 +3,12 @@ const { frontendUrl } = require("./path");
 const cookieName = "authCookie";
 const cookieValue = "my-cookie-value";
 
-const isAuthed = req => req.cookies && req.cookies[cookieName] === cookieValue;
+const getAuthCookieValue = req =>
+  (req.cookies && req.cookies[cookieName])
+    ? req.cookies[cookieName]
+    : null;
+
+const isAuthed = req => getAuthCookieValue(req) === cookieValue;
 const generateCookie = () => cookieValue;
 
 const authMiddleware = (req, res, next) => {
@@ -19,5 +24,7 @@ module.exports = {
   authMiddleware,
   isAuthed,
   generateCookie,
-  cookieName
+  getAuthCookieValue,
+  cookieName,
+  cookieValue
 };
