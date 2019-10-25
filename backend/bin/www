@@ -28,6 +28,10 @@ var server = http.createServer(app);
 server.listen(port, onListening);
 server.on('error', onError);
 
+console.log("RUNNING ON 3001");
+console.log("http://localhost:3001");
+
+
 /**
  * Normalize a port into a number, string, or false.
  */

@@ -10,8 +10,10 @@ router.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
   getAssetList(req)
-    .then(resp => resp.data)
-    .catch(e => ({ error: e }))
+    .catch(e => {
+      console.error(e);
+      return { error: process.env.NODE_ENV === "production" ? "Error!" : e };
+    })
     .then(jsonData => res.end(JSON.stringify(jsonData)));
 });
 
