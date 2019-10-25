@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import { API_URL } from './util/api'
 import './App.css';
 
 function App() {
@@ -9,6 +10,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <p>
+          Likely backend: {API_URL}
         </p>
         <a
           className="App-link"
