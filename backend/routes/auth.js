@@ -1,5 +1,6 @@
 const express = require("express");
-const { cookieName, generateCookie, isAuthed, frontendUrl } = require("../util/auth");
+const { cookieName, generateCookie, isAuthed } = require("../util/auth");
+const { frontendUrl } = require("../util/path");
 
 const router = express.Router();
 
