@@ -1,29 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import { API_URL } from './util/api'
-import './App.css';
+import React, {Fragment} from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route, Redirect
+} from "react-router-dom";
+import Cookie from "js-cookie";
+
+function Login() {
+  return (
+    <h1>LOGIN</h1>
+  )
+}
+
+function Dashboard() {
+  return (
+    <h1>DASHBOARD</h1>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Likely backend: {API_URL}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        {Cookie.get("authCookie") ? (
+          <Fragment>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+            <Route path="/">
+              <Redirect to={"/dashboard"} />
+            </Route>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/">
+              <Redirect to={"/login"} />
+            </Route>
+          </Fragment>
+        )}
+      </Switch>
+    </Router>
   );
 }
 
