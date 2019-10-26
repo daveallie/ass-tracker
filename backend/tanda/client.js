@@ -35,19 +35,27 @@ const getShift = (req, shiftId) => {
       .then(response => response.data);
 };
 
-const markAssetInUse = (req, assetId, inUse) =>
+const getAsset = (req, id) =>
     axios
-        .put("https://my.tanda.co/api/v2/platform/car/" + assetId, {
-              'car_in_use': inUse
-            },
+        .get("https://my.tanda.co/api/v2/platform/car/" + id, {
+          headers: {Authorization: `bearer ${getTandaApiToken(req)}`}
+        })
+        .catch(error => console.log("Got asset update error", error))
+        .then(response => response.data);
+
+const updateAsset = (req, id, asset) =>
+    axios
+        .put("https://my.tanda.co/api/v2/platform/car/" + id,
+            asset,
             {
               headers: {Authorization: `bearer ${getTandaApiToken(req)}`}
             },
         )
-        .catch(error => console.log("Got shift error", error));
+        .catch(error => console.log("Got asset update error", error));
 
 module.exports = {
   getAssetList,
   getShift,
-  markAssetInUse
+  getAsset,
+  updateAsset
 };
