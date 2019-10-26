@@ -1,3 +1,15 @@
 body {
     background-color: #f6f7f9;
 }
+
+.ui.primary.button, .ui.primary.buttons .button, .ui.primary.button:visited, .ui.primary.buttons .button:visited, .ui.primary.button:focus, .ui.primary.buttons .button:focus {
+    background-color: #385AD9;
+}
+
+.ui.primary.button:hover, .ui.primary.buttons .button:hover {
+    background-color: #3f65f3;
+}
+
+.ui.primary.button:active, .ui.primary.buttons .button:active {
+    background-color: #243c8e;
+}

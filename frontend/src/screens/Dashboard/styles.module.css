@@ -1,0 +1,9 @@
+.dashboardContainer {
+    margin: 20px;
+}
+
+.actionsContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+}
