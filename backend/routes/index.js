@@ -8,6 +8,11 @@ router.use(authMiddleware);
 
 router.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({}));
+});
+
+router.get('/assets', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
 
   getAssetList(req)
     .catch(e => {
