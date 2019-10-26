@@ -7,8 +7,7 @@ const TableContent = ({assets}) => (
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Identifier</Table.HeaderCell>
-        <Table.HeaderCell>Service Schedule Period</Table.HeaderCell>
-        <Table.HeaderCell>Time Last Schedule</Table.HeaderCell>
+        <Table.HeaderCell>Time Until Service</Table.HeaderCell>
         <Table.HeaderCell width={3}>Life Cycle</Table.HeaderCell>
         <Table.HeaderCell>Total Time Used</Table.HeaderCell>
         <Table.HeaderCell>Status</Table.HeaderCell>
