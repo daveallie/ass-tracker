@@ -25,6 +25,29 @@ const getAssetList = req => Promise.all([getAssets(req), getAllUsers(req)]).then
   return assets;
 });
 
+const getShift = (req, shiftId) => {
+  console.log("Getting shift", shiftId);
+  return axios
+      .get("https://my.tanda.co/api/v2/shifts/" + shiftId, {
+        headers: {Authorization: `bearer ${getTandaApiToken(req)}`},
+      })
+      .catch(error => console.log("Got shift error", error))
+      .then(response => response.data);
+};
+
+const markAssetInUse = (req, assetId, inUse) =>
+    axios
+        .put("https://my.tanda.co/api/v2/platform/car/" + assetId, {
+              'car_in_use': inUse
+            },
+            {
+              headers: {Authorization: `bearer ${getTandaApiToken(req)}`}
+            },
+        )
+        .catch(error => console.log("Got shift error", error));
+
 module.exports = {
-  getAssetList
+  getAssetList,
+  getShift,
+  markAssetInUse
 };
