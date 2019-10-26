@@ -1,5 +1,6 @@
 const express = require("express");
-const { getShift, getAsset, updateAsset } = require("../tanda/client");
+const {getShift, getAsset, updateAsset} = require("../tanda/client");
+const {triggerClientsUpdate} = require("../util/websockets");
 
 const router = express.Router();
 
@@ -8,7 +9,10 @@ router.post('/', (req, res) => {
 
   const payload = req.body.payload;
 
-  if (payload.topic === "clockin.updated") {
+  if (payload.topic === 'platform_record.updated') {
+    triggerClientsUpdate()
+
+  } else if (payload.topic === "clockin.updated") {
     const shift_id = payload.body.shift_id;
     const shift_type = payload.body.type;
     const user_id = payload.body.user_id;
@@ -31,22 +35,24 @@ router.post('/', (req, res) => {
         const asset_id = shift.tag;
         if (asset_id === null)
           throw Error("No shift ID!!");
-        const shiftTimeMin = shift.finish - shift.start;
-        const shiftTimeHr = shiftTimeMin === 0 ? 0 : shiftTimeMin / 60;
+        const shiftTimeSecs = shift.finish - shift.start;
+        const shiftTimeHr = shiftTimeSecs === 0 ? 0 : shiftTimeSecs / 60 / 60;
         return {
+          userId: shift.user_id,
           assetId: asset_id,
           shiftTime: shiftTimeHr
         };
       }).then(shiftData =>
-        getAsset(req, shiftData.assetId).then(asset => {
-          console.log("Got asset", asset);
-          const assetData = {
-            car_in_use: false,
-            hours_since_last_service: asset.hours_since_last_service + shiftTimeHr,
-            total_hours_of_use: asset.total_hours_of_use + shiftTimeHr
-          };
-          return updateAsset(req, shiftData.assetId, assetData);
-      }));
+          getAsset(req, shiftData.assetId).then(asset => {
+            console.log("Got asset", asset);
+            const assetData = {
+              car_in_use: false,
+              last_user_id: shiftData.userId,
+              hours_since_last_service: asset.hours_since_last_service + shiftData.shiftTime,
+              total_hours_of_use: asset.total_hours_of_use + shiftData.shiftTime
+            };
+            return updateAsset(req, shiftData.assetId, assetData);
+          })).catch(e => console.log(e));
 
       getShift(req, shift_id).then(shift => {
         const asset_id = shift.tag;
@@ -54,14 +60,12 @@ router.post('/', (req, res) => {
         const shiftTimeHr = shiftTimeMin === 0 ? 0 : shiftTimeMin / 60;
         const asset = {
           car_in_use: false,
-          hours_since_last_service: + shiftTimeHr,
-          total_hours_of_use: + shiftTimeHr
+          hours_since_last_service: +shiftTimeHr,
+          total_hours_of_use: +shiftTimeHr
         };
         updateAsset(req, asset_id, asset);
       });
     }
-
-    //todo update last_user and usage time
   }
   res.end();
 });
