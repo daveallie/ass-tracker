@@ -4,6 +4,7 @@ import {Loader, Dimmer, ButtonGroup, Button} from "semantic-ui-react";
 import { getAssets } from "../../util/api";
 import { populateAssets } from "../../store/actions";
 import styles from "./styles.module.css";
+import TableContent from "../../components/Table";
 
 const AssetTypeToggler = ({ current, onClick }) => {
   return (
@@ -23,7 +24,7 @@ const DashboardActions = ({ currentType, onTypeChange }) => (
   </div>
 );
 
-const DashboardTable = ({ assets }) => (`Yo table here! -- ${Object.keys(assets).length} assets`);
+const DashboardTable = ({ assets }) => <TableContent assets={assets}/>
 
 const DashboardContent = ({ assets }) => {
   const [currentType, setCurrentType] = useState("car");
