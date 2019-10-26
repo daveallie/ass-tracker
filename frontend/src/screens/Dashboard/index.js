@@ -1,6 +1,7 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useState, useEffect} from "react";
 import { connect } from "react-redux";
 import {Loader, Dimmer, ButtonGroup, Button} from "semantic-ui-react";
+import Pusher from "pusher-js";
 import { getAssets } from "../../util/api";
 import { populateAssets } from "../../store/actions";
 import styles from "./styles.module.css";
@@ -35,10 +36,23 @@ const DashboardContent = ({ assets }) => {
       <DashboardTable assets={currentType === "car" ? assets : {}}/>
     </Fragment>
   );
-}
+};
 
 const Dashboard = ({ assets, populateAssets }) => {
   const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    const pusher = new Pusher('6d9a170dbcbf1cbc739a', {
+      cluster: 'ap4',
+      forceTLS: true
+    });
+
+    const channel = pusher.subscribe('frontend');
+    channel.bind('reload', () => {
+      console.log("RELOADING PAGE BASED ON UPDATE!");
+      getAssets().then(data => populateAssets(data)).then(() => console.log("DONE!"))
+    });
+  }, []);
 
   if (isFetching || !assets || Object.keys(assets).length < 1) {
     if (!isFetching) {
