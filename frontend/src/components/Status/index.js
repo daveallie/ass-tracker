@@ -1,15 +1,37 @@
 import React from 'react'
-import { Label } from 'semantic-ui-react'
+import { Image, Label, Popup} from 'semantic-ui-react'
+import styles from "./styles.module.css"
 
 const Status = ({isOccupied, pic}) => {
-  const img = (pic && pic.user && pic.user.photo ) ? pic.user.photo : "https://react.semantic-ui.com/images/avatar/small/veronika.jpg"
+  const img = (pic && pic.user) ? pic.user.photo : null;
+
+  if (!pic || !pic.user) {
+    return (
+      <Label as='a' color={isOccupied ? "red" : "green"} image>
+        {img && <img src={img} />}
+        {isOccupied ? "Occupied" : "Available"}
+      </Label>
+    )
+  }
+
   return (
-    <div>
+    <Popup position="left center" trigger={
       <Label as='a' color={isOccupied ? "red" : "green"} image>
         <img src={img} />
         {isOccupied ? "Occupied" : "Available"}
       </Label>
-    </div>
+    }>
+      <div className={styles.popoverTitle}>Last User</div>
+      <Image src={img} />
+      <div className={styles.popoverContent}>
+        <div className={styles.popoverRow}>
+          <span className={styles.popoverKey}>Name:</span>
+          <span className={styles.popoverValue}>{pic.user.name}</span>
+        </div>
+      </div>
+      <div></div>
+    </Popup>
+
   );
 };
 

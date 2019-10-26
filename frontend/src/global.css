@@ -23,3 +23,13 @@ body {
         #db2828 20px
     );
 }
+
+.ui.image.label {
+    text-align: center;
+    width: 50% !important;
+    max-width: 100px !important;
+}
+
+.ui.image.label img {
+    float: left;
+}

@@ -11,7 +11,7 @@ const RowContent = ({ asset }) => (
     <Table.Cell>{formatNum(asset.hours_since_last_service)} / {formatNum(asset.service_schedule_in_hours)}</Table.Cell>
     <Table.Cell><ProgressBar percent={asset.hours_since_last_service/asset.service_schedule_in_hours * 100}/></Table.Cell>
     <Table.Cell>{formatNum(asset.total_hours_of_use)}</Table.Cell>
-    <Table.Cell><Status isOccupied={asset.car_in_use} pic={asset}/></Table.Cell>
+      <Table.Cell><Status isOccupied={asset.car_in_use} pic={asset}/></Table.Cell>
   </Table.Row>
 );
 
