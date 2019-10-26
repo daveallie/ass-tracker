@@ -1,8 +1,8 @@
+require('dotenv').config({path: __dirname + '/.env'});
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const logger = require('morgan');
-require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
