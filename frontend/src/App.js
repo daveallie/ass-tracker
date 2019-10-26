@@ -5,18 +5,8 @@ import {
   Route, Redirect
 } from "react-router-dom";
 import Cookie from "js-cookie";
-
-function Login() {
-  return (
-    <h1>LOGIN</h1>
-  )
-}
-
-function Dashboard() {
-  return (
-    <h1>DASHBOARD</h1>
-  )
-}
+import Dashboard from "./screens/Dashboard";
+import Login from "./screens/Login";
 
 function App() {
   return (

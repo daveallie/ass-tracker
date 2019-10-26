@@ -9,12 +9,12 @@ router.post('/login', (req, res) => {
     res.cookie(cookieName, generateCookie());
   }
 
-  res.redirect(`${frontendUrl}/`);
+  res.end();
 });
 
 router.post('/logout', (req, res) => {
   res.clearCookie(cookieName);
-  res.redirect('/');
+  res.end();
 });
 
 module.exports = router;
