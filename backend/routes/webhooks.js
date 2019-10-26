@@ -54,17 +54,17 @@ router.post('/', (req, res) => {
             return updateAsset(req, shiftData.assetId, assetData);
           })).catch(e => console.log(e));
 
-      getShift(req, shift_id).then(shift => {
-        const asset_id = shift.tag;
-        const shiftTimeMin = shift.finish - shift.start;
-        const shiftTimeHr = shiftTimeMin === 0 ? 0 : shiftTimeMin / 60;
-        const asset = {
-          car_in_use: false,
-          hours_since_last_service: +shiftTimeHr,
-          total_hours_of_use: +shiftTimeHr
-        };
-        updateAsset(req, asset_id, asset);
-      });
+      // getShift(req, shift_id).then(shift => {
+      //   const asset_id = shift.tag;
+      //   const shiftTimeMin = shift.finish - shift.start;
+      //   const shiftTimeHr = shiftTimeMin === 0 ? 0 : shiftTimeMin / 60;
+      //   const asset = {
+      //     car_in_use: false,
+      //     hours_since_last_service: +shiftTimeHr,
+      //     total_hours_of_use: +shiftTimeHr
+      //   };
+      //   updateAsset(req, asset_id, asset);
+      // });
     }
   }
   res.end();
