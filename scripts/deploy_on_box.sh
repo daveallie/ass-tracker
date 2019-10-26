@@ -29,6 +29,7 @@ NODE_ENV=production yarn build
 
 outputLogHeader "Stopping backend"
 pm2 stop backend || true
+pm2 delete backend || true
 
 outputLogHeader "Mapping current deployment to $deploymentRoot"
 rm /home/ubuntu/server/current || true
