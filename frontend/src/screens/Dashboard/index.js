@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Button, Loader, Dimmer } from "semantic-ui-react";
-import { getAssets, logout } from "../../util/api";
+import { Loader, Dimmer } from "semantic-ui-react";
+import { getAssets } from "../../util/api";
 import { populateAssets } from "../../store/actions";
-
-const handleLogout = () => logout()
-  .then(() => window.location.reload());
 
 const DashboardContent = ({ assets, populateAssets }) => {
   const [isFetching, setIsFetching] = useState(false);
@@ -22,9 +19,7 @@ const DashboardContent = ({ assets, populateAssets }) => {
 
 const Dashboard = ({ assets, populateAssets }) => (
   <div>
-    <h1>DASHBOARD</h1>
     <DashboardContent assets={assets} populateAssets={populateAssets} />
-    <Button onClick={handleLogout}>Logout</Button>
   </div>
 );
 
