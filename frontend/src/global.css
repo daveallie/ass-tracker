@@ -13,3 +13,13 @@ body {
 .ui.primary.button:active, .ui.primary.buttons .button:active {
     background-color: #243c8e;
 }
+
+.ui.darkred.progress .bar {
+    background: repeating-linear-gradient(
+        135deg,
+        #862121,
+        #862121 10px,
+        #db2828 10px,
+        #db2828 20px
+    );
+}
