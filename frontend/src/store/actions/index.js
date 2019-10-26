@@ -1,9 +1,7 @@
-import { indexBy } from "lodash";
+import { keyBy } from "lodash";
 
 export const populateAssets = assets => {
-  const data = Array.isArray(assets)
-    ? indexBy(assets, a => a.id.toString())
-    : assets;
+  const data = Array.isArray(assets) ? keyBy(assets, a => a.id.toString()) : assets;
 
   return {
     type: "POPULATE_ASSETS",
