@@ -7,10 +7,10 @@ const TableContent = ({assets}) => (
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Number Plate</Table.HeaderCell>
-        <Table.HeaderCell>Service Schedule in Hours</Table.HeaderCell>
-        <Table.HeaderCell>Hours Since Last Schedule</Table.HeaderCell>
-        <Table.HeaderCell>Life Cycle</Table.HeaderCell>
-        <Table.HeaderCell>Total Hours Used</Table.HeaderCell>
+        <Table.HeaderCell>Service Schedule Period</Table.HeaderCell>
+        <Table.HeaderCell>Time Last Schedule</Table.HeaderCell>
+        <Table.HeaderCell width={3}>Life Cycle</Table.HeaderCell>
+        <Table.HeaderCell>Total Time Used</Table.HeaderCell>
         <Table.HeaderCell>Status</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
