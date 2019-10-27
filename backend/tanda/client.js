@@ -25,33 +25,43 @@ const getAssetList = req => Promise.all([getAssets(req), getAllUsers(req)]).then
   return assets;
 });
 
-const getShift = (req, shiftId) => {
-  console.log("Getting shift", shiftId);
+const getShift = (req, id) => {
+  console.log("Getting shift", id);
   return axios
-      .get("https://my.tanda.co/api/v2/shifts/" + shiftId, {
+      .get("https://my.tanda.co/api/v2/shifts/" + id, {
         headers: {Authorization: `bearer ${getTandaApiToken(req)}`},
       })
       .catch(error => console.log("Got shift error", error))
-      .then(response => response.data);
+      .then(response => {
+        console.log("Got shift", response.data);
+        return response.data
+      });
 };
 
-const getAsset = (req, id) =>
-    axios
-        .get("https://my.tanda.co/api/v2/platform/car/" + id, {
-          headers: {Authorization: `bearer ${getTandaApiToken(req)}`}
-        })
-        .catch(error => console.log("Got asset update error", error))
-        .then(response => response.data);
+const getAsset = (req, id) => {
+  console.log("Getting asset", id);
+  return axios
+      .get("https://my.tanda.co/api/v2/platform/car/" + id, {
+        headers: {Authorization: `bearer ${getTandaApiToken(req)}`}
+      })
+      .catch(error => console.log("Got asset update error", error))
+      .then(response => {
+        console.log("Got asset", response.data);
+        return response.data;
+      });
+};
 
-const updateAsset = (req, id, asset) =>
-    axios
-        .put("https://my.tanda.co/api/v2/platform/car/" + id,
-            asset,
-            {
-              headers: {Authorization: `bearer ${getTandaApiToken(req)}`}
-            },
-        )
-        .catch(error => console.log("Got asset update error", error));
+const updateAsset = (req, id, asset) => {
+  console.log("Updating asset", id, asset);
+  return axios
+      .put("https://my.tanda.co/api/v2/platform/car/" + id,
+          asset,
+          {
+            headers: {Authorization: `bearer ${getTandaApiToken(req)}`}
+          },
+      )
+      .catch(error => console.log("Got asset update error", error));
+};
 
 module.exports = {
   getAssetList,
